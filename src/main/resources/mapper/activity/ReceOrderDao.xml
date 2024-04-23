@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.ReceOrderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.ReceOrderEntity" id="receOrderMap">
+        <result property="id" column="id"/>
+        <result property="orderReceiveTime" column="order_receive_time"/>
+        <result property="designer" column="designer"/>
+        <result property="firstDraftTime" column="first_draft_time"/>
+        <result property="firstSourcefileTime" column="first_sourcefile_time"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="concatTelephone" column="concat_telephone"/>
+    </resultMap>
+
+
+</mapper>

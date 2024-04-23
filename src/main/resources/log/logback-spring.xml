@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+<!--    <property name="LOG_HOME" value="${log.home}" />-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}[%L] - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_INFO"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/zbt.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/zbt-log.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <MaxHistory>120</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}[%L] - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 打印sql语句 -->
+    <logger name="com.zbt.module.activity.dao.ActivityDao" level="DEBUG" />
+    <logger name="com.zbt.module.activity.dao.CommunicateRecordDao" level="DEBUG" />
+    <logger name="com.zbt.module.activity.dao.OptionDao" level="DEBUG" />
+    <logger name="com.zbt.module.activity.dao.OrderDao" level="DEBUG" />
+    <logger name="com.zbt.module.activity.dao.ReceOrderDao" level="DEBUG" />
+    <logger name="com.zbt.module.activity.dao.UserDao" level="DEBUG" />
+
+    <logger name="com.zbt.module.setting.dao.LevelDao" level="DEBUG" />
+    <logger name="com.zbt.module.setting.dao.LevelUserDao" level="DEBUG" />
+    <logger name="com.zbt.module.setting.dao.RoleDao" level="DEBUG" />
+    <logger name="com.zbt.module.setting.dao.UnitDao" level="DEBUG" />
+    <logger name="com.zbt.module.setting.dao.UnitUserDao" level="DEBUG" />
+
+    <logger name="org.apache.ibatis" level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="java.sql" level="debug">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE_INFO" />
+    </root>
+
+</configuration>

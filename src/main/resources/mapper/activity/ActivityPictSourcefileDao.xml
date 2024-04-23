@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.ActivityFileDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.ActivityFileEntity" id="ActivityFileMap">
+        <result property="id" column="id"/>
+        <result property="actId" column="act_id"/>
+        <result property="url" column="url"/>
+        <result property="type" column="type"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="uploadTime" column="upload_time"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.OpActDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.OpActEntity" id="opActMap">
+        <result property="id" column="id"/>
+        <result property="opName" column="op_name"/>
+        <result property="opType" column="op_type"/>
+        <result property="actId" column="act_id"/>
+    </resultMap>
+
+
+</mapper>

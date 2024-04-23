@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.OrderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.OrderEntity" id="orderMap">
+        <result property="id" column="id"/>
+        <result property="orderTime" column="order_time"/>
+        <result property="demandStore" column="demand_store"/>
+        <result property="demandTime" column="demand_time"/>
+        <result property="material" column="material"/>
+        <result property="useCol" column="use_col"/>
+        <result property="festival" column="festival"/>
+        <result property="topic" column="topic"/>
+        <result property="brand" column="brand"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="status" column="status"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderUserName" column="order_user_name"/>
+        <result property="actId" column="act_id"/>
+        <result property="actName" column="act_name"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="receUserId" column="rece_user_id"/>
+    </resultMap>
+
+
+</mapper>

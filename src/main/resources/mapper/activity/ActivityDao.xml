@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.ActivityDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.ActivityEntity" id="activityMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="uploadTime" column="upload_time"/>
+        <result property="uploader" column="uploader"/>
+        <result property="material" column="material"/>
+        <result property="useCol" column="use_col"/>
+        <result property="festival" column="festival"/>
+        <result property="topic" column="topic"/>
+        <result property="brand" column="brand"/>
+        <result property="applicableGrade" column="applicable_grade"/>
+        <result property="schemeIntro" column="scheme_intro"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <resultMap id="activityDtoMap" type="com.zbt.module.activity.dto.ActivityDto">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="uploadTime" column="upload_time"/>
+        <result property="uploader" column="uploader"/>
+        <result property="material" column="material"/>
+        <result property="useCol" column="use_col"/>
+        <result property="festival" column="festival"/>
+        <result property="topic" column="topic"/>
+        <result property="brand" column="brand"/>
+        <result property="applicableGrade" column="applicable_grade"/>
+        <result property="schemeIntro" column="scheme_intro"/>
+        <result property="isDelete" column="is_delete"/>
+        <collection property="picturesUrl" ofType="com.zbt.module.activity.entity.ActivityFileEntity">
+            <id property="id" column="taf_id" jdbcType="INTEGER"/>
+            <result property="actId" column="act_id" jdbcType="INTEGER"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="isDelete" column="taf_is_delete" jdbcType="INTEGER"/>
+            <result property="uploadTime" column="taf_upload_time" jdbcType="DATE"/>
+        </collection>
+        <collection property="optionList" ofType="com.zbt.module.activity.entity.OpActEntity">
+            <!--            <result property="id" column="toa_id" jdbcType="INTEGER"/>-->
+            <result property="opType" column="toa_op_type" jdbcType="VARCHAR"/>
+            <result property="opName" column="toa_op_name" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <select id="getActivityDto" resultMap="activityDtoMap">
+        SELECT
+            ta.id,
+            ta.`name`,
+            ta.upload_time,
+            ta.uploader,
+            ta.material,
+            ta.use_col,
+            ta.festival,
+            ta.topic,
+            ta.brand,
+            ta.applicable_grade,
+            ta.scheme_intro,
+            ta.is_delete,
+            taf.id taf_id,
+            taf.act_id,
+            taf.type,
+            taf.upload_time taf_upload_time,
+            taf.url,
+            toa.op_name toa_op_name,
+            toa.op_type toa_op_type
+        FROM
+            ( SELECT * FROM tb_activity ta LIMIT #{limit} OFFSET #{offset} ) AS ta
+            LEFT JOIN tb_activity_file taf ON ta.id = taf.act_id
+            LEFT JOIN tb_op_act toa ON ta.id = toa.act_id;
+    </select>
+
+    <select id="getActivityDtoWithCondition" resultMap="activityDtoMap">
+        SELECT
+            ta.id,
+            ta.`name`,
+            ta.upload_time,
+            ta.uploader,
+            ta.material,
+            ta.use_col,
+            ta.festival,
+            ta.topic,
+            ta.brand,
+            ta.applicable_grade,
+            ta.scheme_intro,
+            ta.is_delete,
+            taf.id taf_id,
+            taf.act_id,
+            taf.type,
+            taf.upload_time taf_upload_time,
+            taf.url,
+            toa.op_name toa_op_name,
+            toa.op_type toa_op_type
+        FROM
+            ( select * from tb_activity LIMIT #{limit} OFFSET #{offset} ) AS ta
+        LEFT JOIN tb_activity_file taf ON ta.id = taf.act_id
+        LEFT JOIN tb_op_act toa ON ta.id = toa.act_id
+        <where>
+            <if test="cond.material.size() != 0">
+                <!--AND语句, where标签会自动处理, 如果if为空-->
+                AND toa.op_name IN
+                <foreach item="item" index="index" collection="cond.material" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cond.useCol.size() != 0">
+                AND toa.op_name IN
+                <foreach item="item" index="index" collection="cond.useCol" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cond.festival.size() != 0">
+                AND toa.op_name IN
+                <foreach item="item" index="index" collection="cond.festival" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cond.topic.size() != 0">
+                AND toa.op_name IN
+                <foreach item="item" index="index" collection="cond.topic" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cond.brand.size() != 0">
+                AND toa.op_name IN
+                <foreach item="item" index="index" collection="cond.brand" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        ;
+    </select>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zbt.module.activity.dao.OptionDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.zbt.module.activity.entity.OptionEntity" id="optionMap">
+        <result property="id" column="id"/>
+        <result property="libraryName" column="library_name"/>
+        <result property="typeName" column="type_name"/>
+        <result property="optionName" column="options"/>
+    </resultMap>
+
+
+</mapper>
